@@ -1113,7 +1113,7 @@ def render_graph_figure(graph: PropertyGraph,
     # Matched highlight legend indicator if any
     if matched_node_ids:
         fig.add_annotation(
-            text=f"✨ Matched Subgraph: {len(matched_node_ids)} Node(s) highlighted",
+            text=f"Matched Subgraph: {len(matched_node_ids)} Node(s) highlighted",
             xref="paper", yref="paper",
             x=0.01, y=0.99, showarrow=False,
             bgcolor="#FEF08A",
@@ -1331,12 +1331,12 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
         </div>
         
         <div id="controls">
-            <button class="ctrl-btn" id="physics-btn" onclick="togglePhysics()" title="Toggle Physics Bounce">⏸️ Freeze</button>
-            <button class="ctrl-btn" id="pulse-btn" onclick="togglePulseAnimation()" title="Animate Path Traversal Across Nodes">✨ Pulse Traversal</button>
-            <button class="ctrl-btn" onclick="scatterAndSnap()" title="Scatter Outward & Elastic Snap Back">🎲 Scatter</button>
-            <button class="ctrl-btn" onclick="centerGraph()" title="Fit to View">🎯 Center</button>
-            <button class="ctrl-btn" onclick="zoom(0.2)" title="Zoom In">🔍 +</button>
-            <button class="ctrl-btn" onclick="zoom(-0.2)" title="Zoom Out">🔎 -</button>
+            <button class="ctrl-btn" id="physics-btn" onclick="togglePhysics()" title="Toggle Physics Bounce">Freeze</button>
+            <button class="ctrl-btn" id="pulse-btn" onclick="togglePulseAnimation()" title="Animate Path Traversal Across Nodes">Pulse Traversal</button>
+            <button class="ctrl-btn" onclick="scatterAndSnap()" title="Scatter Outward & Elastic Snap Back">Scatter</button>
+            <button class="ctrl-btn" onclick="centerGraph()" title="Fit to View">Center</button>
+            <button class="ctrl-btn" onclick="zoom(0.2)" title="Zoom In">+</button>
+            <button class="ctrl-btn" onclick="zoom(-0.2)" title="Zoom Out">-</button>
         </div>
     </div>
 
@@ -1431,7 +1431,7 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
             physicsEnabled = !physicsEnabled;
             network.setOptions({ physics: { enabled: physicsEnabled } });
             var btn = document.getElementById('physics-btn');
-            btn.innerHTML = physicsEnabled ? '⏸️ Freeze' : '▶️ Live Physics';
+            btn.innerHTML = physicsEnabled ? 'Freeze' : 'Live Physics';
             btn.classList.toggle('active', !physicsEnabled);
         }
 
@@ -1442,7 +1442,7 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
             if (pulseTimer) {
                 clearInterval(pulseTimer);
                 pulseTimer = null;
-                btn.innerHTML = '✨ Pulse Traversal';
+                btn.innerHTML = 'Pulse Traversal';
                 btn.classList.remove('active');
                 // Restore base sizes
                 var resets = [];
@@ -1452,7 +1452,7 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
                 nodes.update(resets);
                 return;
             }
-            btn.innerHTML = '⏹️ Stop Pulse';
+            btn.innerHTML = 'Stop Pulse';
             btn.classList.add('active');
             var allIds = nodes.getIds();
             if (!allIds || allIds.length === 0) return;
@@ -1523,10 +1523,10 @@ def render_purpose_section():
     """, unsafe_allow_html=True)
 
     tab_why, tab_problem, tab_history, tab_usecases = st.tabs([
-        "🎯 1. Why This Experiment?",
-        "⚡ 2. The Problem Solved",
-        "📜 3. Evolution & History",
-        "🌍 4. Where All It's Used"
+        "1. Why This Experiment?",
+        "2. The Problem Solved",
+        "3. Evolution & History",
+        "4. Where All It's Used"
     ])
 
     with tab_why:
@@ -1628,32 +1628,26 @@ def render_purpose_section():
                 <h3>Global Production Deployments</h3>
                 <div class="usecase-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 0.8rem;">
                     <div class="usecase-card">
-                        <div class="icon">💳</div>
                         <strong>Fraud & Money Laundering</strong>
                         <p>Detects synthetic identities, shared phone numbers across cards, and circular fund routing across banks in real time before wire release.</p>
                     </div>
                     <div class="usecase-card">
-                        <div class="icon">🛒</div>
                         <strong>Real-Time Recommendation</strong>
                         <p>Powers recommendation feeds on Amazon, Netflix, and Spotify through real-time multi-hop collaborative path exploration.</p>
                     </div>
                     <div class="usecase-card">
-                        <div class="icon">🧠</div>
                         <strong>Knowledge Graphs & AI (GraphRAG)</strong>
                         <p>Connects LLMs with verified factual knowledge graphs to eliminate AI hallucinations and provide verifiable source citations.</p>
                     </div>
                     <div class="usecase-card">
-                        <div class="icon">🧬</div>
                         <strong>Healthcare & Drug Discovery</strong>
                         <p>Maps interactions between diseases, genes, proteins, and chemical compounds to accelerate pharmaceutical drug repurposing.</p>
                     </div>
                     <div class="usecase-card">
-                        <div class="icon">🛡️</div>
                         <strong>Cybersecurity & IAM</strong>
                         <p>Audits Active Directory and cloud permissions (e.g., BloodHound) to detect hidden privilege escalation attack paths before breach.</p>
                     </div>
                     <div class="usecase-card">
-                        <div class="icon">🚚</div>
                         <strong>Supply Chain Resilience</strong>
                         <p>Maps tier-1 to tier-N supplier dependencies to detect single points of failure and reroute critical logistics during disruptions.</p>
                     </div>
@@ -1665,11 +1659,11 @@ def render_purpose_section():
     st.write("")
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Proceed to Theory & Architecture ➔", type="primary", use_container_width=True, key="purpose_to_theory_btn"):
+        if st.button("Proceed to Theory & Architecture", type="primary", use_container_width=True, key="purpose_to_theory_btn"):
             st.session_state["requested_section"] = "Theory"
             st.rerun()
     with col2:
-        if st.button("Launch Interactive Simulation ➔", use_container_width=True, key="purpose_to_sim_btn"):
+        if st.button("Launch Interactive Simulation", use_container_width=True, key="purpose_to_sim_btn"):
             st.session_state["requested_section"] = "Simulation"
             st.rerun()
 
@@ -1827,9 +1821,9 @@ def render_simulation_section():
 
     with col_tools:
         tab_cypher, tab_builder, tab_logger = st.tabs([
-            "⚡ Cypher Console",
-            "🛠️ Visual Builder",
-            "📋 Observation Log"
+            "Cypher Console",
+            "Visual Builder",
+            "Observation Log"
         ])
 
         with tab_cypher:
@@ -1859,7 +1853,7 @@ def render_simulation_section():
             )
             st.session_state["current_query_input"] = query_input
 
-            if st.button("▶ Run Cypher Query", type="primary", use_container_width=True):
+            if st.button("Run Cypher Query", type="primary", use_container_width=True):
                 res = engine.execute(query_input)
                 st.session_state["last_cypher_result"] = res
                 st.session_state["matched_node_ids"] = res["matched_node_ids"]
@@ -2104,7 +2098,7 @@ def render_simulation_section():
         with tab_logger:
             col_lbtn1, col_lbtn2 = st.columns(2)
             with col_lbtn1:
-                if st.button("📸 Record Snapshot", type="primary", use_container_width=True):
+                if st.button("Record Snapshot", type="primary", use_container_width=True):
                     trial_record = {
                         "Trial #": len(st.session_state["trials"]) + 1,
                         "Operation": "Graph Snapshot",
@@ -2168,62 +2162,83 @@ def render_simulation_section():
 
 
 def render_quiz_section():
-    """Renders Section: Assessment Quiz with 3-tab Single-Paper Layout and Instant Feedback."""
+    """Renders Section: Assessment Quiz in full scrollable layout with large, clear typography and instant feedback."""
     st.markdown(f"""
-        <div class="purpose-header" style="padding:1.2rem 1.8rem; margin-bottom:1.2rem;">
+        <div class="purpose-header">
             <div class="hero-eyebrow"><span class="hero-dot"></span>PRACTICAL EVALUATION · {EXPERIMENT_CONFIG['lab_code']}</div>
-            <h1 style="font-size:1.8rem !important; margin:0.2rem 0 !important;">Knowledge Assessment Quiz</h1>
-            <p class="subtitle">12 conceptual and practical questions evaluating your mastery of Property Graphs, Cypher queries, and graph storage architecture.</p>
+            <h1>Knowledge Assessment Quiz</h1>
+            <p class="subtitle">12 comprehensive questions evaluating your mastery of Property Graph concepts, Cypher patterns, and storage internals.</p>
         </div>
     """, unsafe_allow_html=True)
 
-    if st.session_state.get("quiz_submitted", False):
+    is_submitted = st.session_state.get("quiz_submitted", False)
+    if is_submitted:
         score = st.session_state.get("quiz_score", 0)
-        perc = (score / len(QUIZ_QUESTIONS)) * 100
-        badge = "🏆 Outstanding / Distinction" if perc >= 80 else ("✅ Passed" if perc >= 50 else "⚠️ Needs Review")
-        st.info(f"**Quiz Result:** Score: **{score} / {len(QUIZ_QUESTIONS)}** ({perc:.0f}%) — **{badge}**. Review explanations below.")
+        total = len(QUIZ_QUESTIONS)
+        perc = (score / total) * 100
+        badge = "Distinction" if perc >= 80 else ("Passed" if perc >= 50 else "Needs Review")
+
+        st.markdown(f"""
+            <div class="quiz-score-banner">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.2rem;">Official Evaluation Result</div>
+                        <span style="font-size: 2.2rem; font-weight: 800; color: var(--accent);">{score} / {total}</span>
+                        <span style="font-size: 1.4rem; font-weight: 600; opacity: 0.85; margin-left: 0.5rem;">({perc:.0f}%)</span>
+                        <div style="font-size: 1.18rem; font-weight: 700; margin-top: 0.3rem;">{badge}</div>
+                    </div>
+                    <div style="max-width: 450px;">
+                        <p style="font-size: 1.05rem; line-height: 1.6; margin: 0; opacity: 0.9;">
+                            Scroll down through each question to examine your answer choices, correct answers, and in-depth conceptual explanations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
 
     with st.form("graph_lab_quiz_form"):
-        quiz_tabs = st.tabs([
-            "Part A: Fundamentals (Q1 – Q4)",
-            "Part B: Cypher Queries (Q5 – Q8)",
-            "Part C: Architecture (Q9 – Q12)"
-        ])
-        
         user_responses = {}
-        partitions = [
-            QUIZ_QUESTIONS[0:4],
-            QUIZ_QUESTIONS[4:8],
-            QUIZ_QUESTIONS[8:12]
-        ]
-        
-        for p_idx, q_subset in enumerate(partitions):
-            with quiz_tabs[p_idx]:
-                c1, c2 = st.columns(2)
-                for i, q in enumerate(q_subset):
-                    target_col = c1 if (i % 2 == 0) else c2
-                    with target_col:
-                        with st.container(border=True):
-                            st.markdown(f"**Q{q['id']}:** {q['question']}")
-                            selected = st.radio(
-                                label=f"Options for Q{q['id']}:",
-                                options=q["options"],
-                                index=st.session_state["quiz_answers"].get(q["id"], 0),
-                                key=f"quiz_radio_{q['id']}",
-                                label_visibility="collapsed"
-                            )
-                            user_responses[q["id"]] = q["options"].index(selected)
-                            
-                            if st.session_state.get("quiz_submitted", False):
-                                u_ans = st.session_state["quiz_answers"].get(q["id"])
-                                if u_ans == q["answer_index"]:
-                                    st.success("✅ Correct!", icon="✅")
-                                else:
-                                    st.error(f"❌ Correct: {q['options'][q['answer_index']]}", icon="❌")
-                                st.caption(f"_{q['explanation']}_")
+
+        for q in QUIZ_QUESTIONS:
+            with st.container(border=True):
+                st.markdown(f"""
+                    <div class="quiz-q-badge">Question {q['id']:02d} of {len(QUIZ_QUESTIONS):02d}</div>
+                    <div class="quiz-q-title">{q['question']}</div>
+                """, unsafe_allow_html=True)
+
+                saved_choice = st.session_state["quiz_answers"].get(q["id"], 0)
+                selected = st.radio(
+                    label=f"Options for Question {q['id']}:",
+                    options=q["options"],
+                    index=saved_choice if saved_choice < len(q["options"]) else 0,
+                    key=f"quiz_radio_{q['id']}",
+                    label_visibility="collapsed"
+                )
+                user_responses[q["id"]] = q["options"].index(selected)
+
+                if is_submitted:
+                    u_ans = st.session_state["quiz_answers"].get(q["id"])
+                    correct_ans = q["answer_index"]
+                    if u_ans == correct_ans:
+                        st.success(f"**Correct.** You selected: **{q['options'][u_ans]}**")
+                    else:
+                        st.error(
+                            f"**Incorrect.** Your selection: **{q['options'][u_ans]}** | "
+                            f"**Correct answer:** **{q['options'][correct_ans]}**"
+                        )
+                    st.markdown(f"""
+                        <div class="quiz-explanation-card">
+                            <strong>Pedagogical Explanation:</strong> {q['explanation']}
+                        </div>
+                    """, unsafe_allow_html=True)
 
         st.write("")
-        submitted = st.form_submit_button("Submit Quiz for Evaluation", type="primary", use_container_width=True)
+        col_btn1, col_btn2 = st.columns([2, 1])
+        with col_btn1:
+            btn_text = "Update & Re-evaluate Quiz Answers" if is_submitted else "Submit Quiz for Evaluation"
+            submitted = st.form_submit_button(btn_text, type="primary", use_container_width=True)
+        with col_btn2:
+            reset_clicked = st.form_submit_button("Reset Answers", type="secondary", use_container_width=True)
 
     if submitted:
         score = 0
@@ -2234,7 +2249,15 @@ def render_quiz_section():
                 score += 1
         st.session_state["quiz_score"] = score
         log_activity("Quiz Done", f"Score: {score}/{len(QUIZ_QUESTIONS)}", "success")
-        st.toast(f"Quiz evaluated! Score: {score}/{len(QUIZ_QUESTIONS)}")
+        st.toast(f"Quiz evaluated! Final Score: {score}/{len(QUIZ_QUESTIONS)}")
+        st.rerun()
+
+    if reset_clicked:
+        st.session_state["quiz_answers"] = {}
+        st.session_state["quiz_submitted"] = False
+        st.session_state["quiz_score"] = 0
+        log_activity("Quiz Reset", "All quiz answers reset", "warning")
+        st.toast("Quiz answers reset.")
         st.rerun()
 
 
@@ -2317,7 +2340,7 @@ def render_report_section():
             col_b1, col_b2 = st.columns(2)
             with col_b1:
                 st.download_button(
-                    label="📥 Download lab_report.pdf",
+                    label="Download lab_report.pdf",
                     data=pdf_bytes,
                     file_name=f"lab_report_{student_id}.pdf",
                     mime="application/pdf",
@@ -2326,7 +2349,7 @@ def render_report_section():
                 )
             with col_b2:
                 st.link_button(
-                    "📄 Open / Print PDF",
+                    "Open / Print PDF",
                     url="/app/static/lab_report.pdf",
                     use_container_width=True
                 )
@@ -2361,12 +2384,12 @@ def render_certificate_section():
             num_trials = len(st.session_state.get("trials", []))
 
             if quiz_done:
-                st.success(f"Assessment: Completed ({quiz_score} / {quiz_total} score)", icon="✅")
+                st.success(f"Assessment: Completed ({quiz_score} / {quiz_total} score)")
             else:
-                st.info("Assessment: Pending (You can complete the Quiz in Section 'Quiz')", icon="ℹ️")
+                st.info("Assessment: Pending (You can complete the Quiz in Section 'Quiz')")
 
             if num_trials > 0:
-                st.success(f"Simulation Activity: {num_trials} trials recorded", icon="✅")
+                st.success(f"Simulation Activity: {num_trials} trials recorded")
             else:
                 st.caption(f"Simulation Activity: {num_trials} trials recorded (Try the 'Simulation' section)")
 
@@ -2419,7 +2442,7 @@ def render_certificate_section():
                             <div class="cert-meta-val">{cert_date}</div>
                         </div>
                         <div class="cert-col cert-seal">
-                            <div class="seal-badge">★ VERIFIED ★</div>
+                            <div class="seal-badge">VERIFIED</div>
                             <div class="seal-sub">VLAB ACCREDITED</div>
                         </div>
                         <div class="cert-col">
@@ -2699,9 +2722,10 @@ def get_app_styles() -> str:
         letter-spacing: -0.01em !important;
     }
     
-    h1 { font-size: 2.15rem !important; line-height: 1.15 !important; }
-    h2 { font-size: 1.55rem !important; margin-top: 1.4rem !important; }
-    h3 { font-size: 1.22rem !important; }
+    h1 { font-size: 2.25rem !important; line-height: 1.15 !important; }
+    h2 { font-size: 1.65rem !important; margin-top: 1.4rem !important; }
+    h3 { font-size: 1.35rem !important; }
+    h4 { font-size: 1.18rem !important; }
 
     /* Virtual Lab Header */
     .vlab-header {
@@ -2714,27 +2738,28 @@ def get_app_styles() -> str:
     }
     .vlab-header h1 {
         margin: 0;
-        font-size: 1.9rem !important;
+        font-size: 2.0rem !important;
         font-weight: 700 !important;
     }
-    .hero-eyebrow { color: var(--accent); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-    .hero-dot { display: inline-block; width: 7px; height: 7px; margin-right: 0.55rem; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
-    .hero-badge { background: linear-gradient(135deg, var(--accent), var(--violet)); color: #FFFFFF; padding: 0.28rem 0.65rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; white-space: nowrap; }
+    .hero-eyebrow { color: var(--accent); font-size: 0.84rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    .hero-dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.55rem; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+    .hero-badge { background: linear-gradient(135deg, var(--accent), var(--violet)); color: #FFFFFF; padding: 0.32rem 0.72rem; border-radius: 999px; font-size: 0.84rem; font-weight: 700; letter-spacing: 0.08em; white-space: nowrap; }
 
     .manual-kicker, .manual-label {
         color: var(--accent) !important;
-        font-size: 0.72rem !important;
+        font-size: 0.84rem !important;
         font-weight: 700 !important;
         letter-spacing: 0.13em !important;
         text-transform: uppercase;
     }
     .manual-intro {
         border-left: 3px solid var(--accent);
-        padding: 0.55rem 1rem;
+        padding: 0.65rem 1.1rem;
         margin: 0.9rem 0 1.4rem;
         background: var(--accent-soft);
         border-radius: 0 8px 8px 0;
-        font-size: 1.05rem !important;
+        font-size: 1.12rem !important;
+        line-height: 1.7 !important;
     }
 
     .concept-diagram { display: flex; align-items: center; justify-content: center; gap: 1.2rem; padding: 1.2rem 1rem; margin: 0.5rem 0 1.5rem; border: 1px solid var(--card-border); background: var(--card-bg); border-radius: 10px; }
@@ -2856,8 +2881,96 @@ def get_app_styles() -> str:
 
     /* General Typography & Spacing */
     body, [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {
+        font-size: 1.12rem !important;
+        line-height: 1.75 !important;
+    }
+
+    /* Form widgets, labels, inputs, selects, textareas */
+    [data-testid="stWidgetLabel"] p, label[data-testid="stWidgetLabel"] {
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stTextInput"] input,
+    [data-testid="stSelectbox"] div[data-baseweb="select"],
+    [data-testid="stTextArea"] textarea,
+    [data-testid="stDateInput"] input {
+        font-size: 1.1rem !important;
+    }
+
+    /* All radio options (e.g. Quiz questions, presets) */
+    [data-testid="stRadio"] div[role="radiogroup"] {
+        gap: 0.75rem;
+    }
+    [data-testid="stRadio"] div[role="radiogroup"] label {
+        padding: 0.45rem 0.75rem !important;
+        border-radius: 8px !important;
+        transition: all 0.15s ease-in-out !important;
+        cursor: pointer !important;
+    }
+    [data-testid="stRadio"] div[role="radiogroup"] label:hover {
+        background: var(--card-subtle) !important;
+    }
+    [data-testid="stRadio"] div[role="radiogroup"] label p,
+    [data-testid="stRadio"] div[role="radiogroup"] label span {
+        font-size: 1.12rem !important;
+        line-height: 1.55 !important;
+        font-weight: 500 !important;
+    }
+
+    /* Buttons */
+    button[kind="primary"], button[kind="secondary"], .stButton > button, div[data-testid="stFormSubmitButton"] > button {
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
+        padding: 0.65rem 1.3rem !important;
+        border-radius: 8px !important;
+    }
+
+    /* Captions & Alerts */
+    [data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p {
+        font-size: 1.02rem !important;
+        line-height: 1.55 !important;
+        opacity: 0.88 !important;
+    }
+    [data-testid="stAlert"] [data-testid="stMarkdownContainer"] p {
+        font-size: 1.12rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Quiz-specific Components */
+    .quiz-score-banner {
+        background: var(--card-bg);
+        border: 2px solid var(--accent);
+        border-radius: 14px;
+        padding: 1.6rem 2.2rem;
+        margin-bottom: 2rem;
+    }
+    .quiz-q-badge {
+        display: inline-block;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 0.28rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+    .quiz-q-title {
+        font-size: 1.25rem !important;
+        font-weight: 600 !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+    }
+    .quiz-explanation-card {
+        background: var(--card-subtle);
+        border-left: 4px solid var(--accent);
+        padding: 1rem 1.3rem;
+        border-radius: 0 8px 8px 0;
+        margin-top: 1rem;
         font-size: 1.08rem !important;
-        line-height: 1.7 !important;
+        line-height: 1.65 !important;
     }
 
     /* Purpose Section Cards */
@@ -3106,9 +3219,9 @@ def get_app_styles() -> str:
 
     /* Tabs & Code Areas */
     [data-testid="stTabs"] [role="tablist"] { gap: 0.5rem; border-bottom: 1px solid var(--card-border); }
-    [data-testid="stTabs"] button[role="tab"] { border-radius: 8px 8px 0 0; padding: 0.7rem 0.95rem; font-size: 1.05rem !important; font-weight: 600 !important; }
+    [data-testid="stTabs"] button[role="tab"] { border-radius: 8px 8px 0 0; padding: 0.8rem 1.25rem; font-size: 1.15rem !important; font-weight: 600 !important; }
     [data-testid="stTabs"] button[role="tab"][aria-selected="true"] { color: var(--accent); font-weight: 700; }
-    [data-testid="stTextArea"] textarea { font-family: 'IBM Plex Mono', monospace !important; }
+    [data-testid="stTextArea"] textarea { font-family: 'IBM Plex Mono', monospace !important; font-size: 1.05rem !important; }
     </style>
     """
 
