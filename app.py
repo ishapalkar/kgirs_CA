@@ -1129,7 +1129,7 @@ def render_graph_figure(graph: PropertyGraph,
         hovermode=False,
         xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-        height=600,
+        height=720,
         margin=dict(l=15, r=15, t=50, b=20),
         plot_bgcolor="rgba(248,250,252,0.6)",
         paper_bgcolor="rgba(0,0,0,0)",
@@ -1246,10 +1246,10 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
     __VIS_NETWORK_SCRIPT_TAG__
     <style type="text/css">
         body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; overflow: hidden; background: #f8fafc; }
-        #canvas-wrapper { position: relative; width: 100%; height: 460px; }
+        #canvas-wrapper { position: relative; width: 100%; height: 720px; }
         #mynetwork {
             width: 100%;
-            height: 460px;
+            height: 720px;
             border: 1px solid #cbd5e1;
             background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
             border-radius: 8px;
@@ -1494,7 +1494,7 @@ def render_interactive_graph_canvas(graph: PropertyGraph,
     html_code = html_code.replace("__NODES_JSON_PLACEHOLDER__", nodes_json)
     html_code = html_code.replace("__EDGES_JSON_PLACEHOLDER__", edges_json)
     
-    components.html(html_code, height=480)
+    components.html(html_code, height=750)
 
 
 # ======================================================================================
@@ -1516,7 +1516,7 @@ def render_purpose_section():
     """Renders the Purpose section: Why this experiment, What problem it solves, History, and Where all it is used."""
     st.markdown(f"""
         <div class="purpose-header">
-            <div class="hero-eyebrow"><span class="hero-dot"></span>EXPERIMENT 08 · DATABASE MANAGEMENT SYSTEMS · {EXPERIMENT_CONFIG['lab_code']}</div>
+            <div class="hero-eyebrow">EXPERIMENT 08</div>
             <h1>Create & Manage a Graph Database</h1>
             <p class="subtitle">A paradigm shift from rigid tabular SQL tables to connected native Property Graphs with Index-Free Adjacency.</p>
         </div>
@@ -1946,6 +1946,8 @@ def render_simulation_section():
                         })
                         log_activity("Node Added", f"{node_id_input} (:{active_label_for_node})", "success")
                         st.toast(f"Node '{node_id_input}' created!")
+                        for k in ["node_id_inp", "node_name_inp", "prop_v1", "prop_v2"]:
+                            st.session_state.pop(k, None)
                         st.rerun()
                     except Exception as ex:
                         st.error(f"Error: {str(ex)}")
@@ -2982,8 +2984,8 @@ def get_app_styles() -> str:
         border: 1px solid var(--card-border);
         border-top: 4px solid var(--accent);
         border-radius: 12px;
-        padding: 1.8rem 2.2rem;
-        margin-bottom: 1.8rem;
+        padding: 1.2rem 1.8rem;
+        margin-bottom: 1.2rem;
     }
     .purpose-header h1 {
         font-size: 2.3rem !important;
@@ -2999,8 +3001,8 @@ def get_app_styles() -> str:
         background: var(--card-bg);
         border: 1px solid var(--card-border);
         border-radius: 12px;
-        padding: 1.8rem 2.2rem;
-        margin-bottom: 1.8rem;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 1.2rem;
     }
     .purpose-section-card h3 {
         font-size: 1.45rem !important;
@@ -3009,7 +3011,7 @@ def get_app_styles() -> str:
         margin-bottom: 0.9rem !important;
     }
     .purpose-section-card p, .purpose-section-card li {
-        font-size: 1.08rem !important;
+        font-size: 1.12rem !important;
         line-height: 1.7 !important;
     }
     .highlight-box {
@@ -3018,7 +3020,7 @@ def get_app_styles() -> str:
         padding: 1rem 1.3rem;
         border-radius: 0 8px 8px 0;
         margin: 1.2rem 0;
-        font-size: 1.08rem !important;
+        font-size: 1.12rem !important;
     }
     .vs-grid {
         display: grid;
@@ -3095,7 +3097,7 @@ def get_app_styles() -> str:
         margin-bottom: 0.4rem;
     }
     .usecase-card p {
-        font-size: 1.02rem !important;
+        font-size: 1.12rem !important;
         line-height: 1.6 !important;
         margin: 0;
         opacity: 0.9;
@@ -3222,7 +3224,7 @@ def get_app_styles() -> str:
 
     /* Tabs & Code Areas */
     [data-testid="stTabs"] [role="tablist"] { gap: 0.5rem; border-bottom: 1px solid var(--card-border); }
-    [data-testid="stTabs"] button[role="tab"] { border-radius: 8px 8px 0 0; padding: 0.8rem 1.25rem; font-size: 1.15rem !important; font-weight: 600 !important; }
+    [data-testid="stTabs"] button[role="tab"] { border-radius: 8px 8px 0 0; padding: 0.9rem 1.4rem; font-size: 1.35rem !important; font-weight: 600 !important; }
     [data-testid="stTabs"] button[role="tab"][aria-selected="true"] { color: var(--accent); font-weight: 700; }
     [data-testid="stTextArea"] textarea { font-family: 'IBM Plex Mono', monospace !important; font-size: 1.05rem !important; }
     </style>
@@ -3242,7 +3244,7 @@ def main():
     st.markdown(get_app_styles(), unsafe_allow_html=True)
 
     # Navigation Sidebar
-    st.sidebar.markdown(f'<div class="sidebar-title">Graph Database Lab</div><div class="sidebar-code">DBMS · {EXPERIMENT_CONFIG["lab_code"]}</div>', unsafe_allow_html=True)
+    st.sidebar.markdown(f'<div class="sidebar-title">Graph Database Lab</div>', unsafe_allow_html=True)
 
     navigation_options = [
         "Purpose",
