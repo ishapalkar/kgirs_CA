@@ -2639,39 +2639,42 @@ def log_activity(action: str, detail: str = "", log_type: str = "info"):
 def render_sidebar_logs():
     """Displays real-time user activity logs in the sidebar."""
     st.sidebar.divider()
-    st.sidebar.markdown('<div class="manual-label" style="font-size:0.75rem; letter-spacing:0.1em; color:var(--accent);">Live Activity Logs</div>', unsafe_allow_html=True)
+    st.sidebar.markdown('<div class="manual-label" style="font-size:0.84rem; letter-spacing:0.1em; color:var(--accent); margin-bottom:0.4rem;">Live Activity Logs</div>', unsafe_allow_html=True)
     logs = st.session_state.get("activity_logs", [])
     if not logs:
         st.sidebar.caption("No activities recorded yet.")
         return
-    
-    log_html = '<div class="sidebar-logs-container">'
+
+    color_map = {
+        "success": ("#10b981", "rgba(16, 185, 129, 0.16)", "rgba(16, 185, 129, 0.45)"),
+        "warning": ("#f59e0b", "rgba(245, 158, 11, 0.16)", "rgba(245, 158, 11, 0.45)"),
+        "error": ("#ef4444", "rgba(239, 68, 68, 0.16)", "rgba(239, 68, 68, 0.45)"),
+        "query": ("#8b5cf6", "rgba(139, 92, 246, 0.16)", "rgba(139, 92, 246, 0.45)"),
+        "info": ("#0284c7", "rgba(2, 132, 199, 0.16)", "rgba(2, 132, 199, 0.45)")
+    }
+
+    rows_html = []
     for entry in reversed(logs[-6:]):
-        b_color = "#0284c7"
-        if entry["type"] == "success":
-            b_color = "#10b981"
-        elif entry["type"] == "warning":
-            b_color = "#f59e0b"
-        elif entry["type"] == "error":
-            b_color = "#ef4444"
-        elif entry["type"] == "query":
-            b_color = "#8b5cf6"
-            
+        c_text, c_bg, c_border = color_map.get(entry["type"], color_map["info"])
+        act = entry["action"]
+        t_str = entry["time"]
         detail_txt = entry.get("detail", "")
         if len(detail_txt) > 28:
             detail_txt = detail_txt[:26] + "..."
-            
-        log_html += f"""
-        <div class="sidebar-log-row">
-            <div class="sidebar-log-header">
-                <span class="sidebar-log-badge" style="background:{b_color}20; color:{b_color}; border:1px solid {b_color}60;">{entry["action"]}</span>
-                <span class="sidebar-log-time">{entry["time"]}</span>
-            </div>
-            <span class="sidebar-log-detail">{detail_txt}</span>
-        </div>
-        """
-    log_html += '</div>'
-    st.sidebar.markdown(log_html, unsafe_allow_html=True)
+
+        row = (
+            '<div class="sidebar-log-row">'
+            '<div class="sidebar-log-header">'
+            f'<span class="sidebar-log-badge" style="background-color:{c_bg}; color:{c_text}; border:1px solid {c_border};">{act}</span>'
+            f'<span class="sidebar-log-time">{t_str}</span>'
+            '</div>'
+            f'<span class="sidebar-log-detail">{detail_txt}</span>'
+            '</div>'
+        )
+        rows_html.append(row)
+
+    full_html = f'<div class="sidebar-logs-container">{"".join(rows_html)}</div>'
+    st.sidebar.markdown(full_html, unsafe_allow_html=True)
 
     col_c1, col_c2 = st.sidebar.columns([1, 1])
     with col_c1:
